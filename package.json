@@ -1,4 +1,3 @@
-
 {
   "name": "phrasenschwein",
   "version": "1.0.0",
@@ -10,15 +9,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/material-bottom-tabs": "^6.2.29",
+    "@react-navigation/native": "^6.1.13",
+    "@supabase/supabase-js": "^2.50.2",
     "expo": "~53.0.0",
     "react": "19.0.0",
     "react-native": "0.79.4",
-    "react-native-paper": "^5.10.1",
-    "@expo/vector-icons": "^14.1.0",
-    "@react-navigation/native": "^6.1.13",
-    "@react-navigation/bottom-tabs": "^6.5.20",
-    "react-native-screens": "~4.11.1",
+    "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "5.4.0",
-    "@supabase/supabase-js": "^2.43.5"
+    "react-native-screens": "~4.11.1",
+    "react-native-vector-icons": "^10.2.0"
   }
 }

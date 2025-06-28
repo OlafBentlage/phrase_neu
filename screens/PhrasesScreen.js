@@ -1,0 +1,131 @@
+import React from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+
+const phrases = [
+  "Das ist eine taktische Meisterleistung.",
+  "Hinten kackt die Ente.",
+  "Das nächste Spiel ist immer das schwerste.",
+  "Ein Spiel dauert 90 Minuten.",
+  "Ich denke, wir müssen das Spiel annehmen.",
+  "Das Runde muss ins Eckige.",
+  "Am Ende zählen nur die drei Punkte.",
+  "Das war ein klassisches 0:0 der besseren Sorte.",
+  "Fußball ist ein Tagesgeschäft.",
+  "Wir müssen den Bock umstoßen.",
+  "Heute haben wir die zweite Luft bekommen.",
+  "Da muss mehr Leidenschaft rein.",
+  "Er hat das Spiel gelesen wie ein Buch.",
+  "Das war ein Dosenöffner.",
+  "Das ist ein mentales Spiel.",
+  "Die Mannschaft hat sich selbst belohnt.",
+  "Das war ein Spiegelbild der Saison.",
+  "Wir müssen weiter hart arbeiten.",
+  "Ich ziehe den Hut vor der Mannschaft.",
+  "Das ist ein Lernprozess.",
+  "Heute haben wir Charakter gezeigt.",
+  "Die Moral der Mannschaft war überragend.",
+  "Er ist ein Mentalitätsmonster.",
+  "Das war eine Energieleistung.",
+  "Wir hatten die richtige Antwort parat.",
+  "Der Sieg war verdient.",
+  "Wir haben das Spiel dominiert.",
+  "Das war ein Statement.",
+  "So ein Spiel kippt schnell.",
+  "Heute hat man gesehen, was möglich ist.",
+  "Da war viel Wille im Spiel.",
+  "Das war ein Befreiungsschlag.",
+  "Wir haben unsere Hausaufgaben gemacht.",
+  "So ist Fußball.",
+  "Das Momentum war auf unserer Seite.",
+  "Wir hatten das Spiel im Griff.",
+  "Das war ein klassisches Sechs-Punkte-Spiel.",
+  "Die Mannschaft hat geliefert.",
+  "Heute hat jeder für jeden gekämpft.",
+  "Wir haben das Herz auf dem Platz gelassen.",
+  "Das war eine Machtdemonstration.",
+  "Wir haben Charakter bewiesen.",
+  "Die Fans haben uns getragen.",
+  "Das ist ein Schritt in die richtige Richtung.",
+  "Der Glaube war immer da.",
+  "Das war ein Big Point.",
+  "Wir wollten ein Zeichen setzen.",
+  "Das Team hat eine Reaktion gezeigt.",
+  "Wir haben aus unseren Fehlern gelernt.",
+  "Das war ein wichtiges Ausrufezeichen.",
+  "Heute war die Körpersprache eine andere.",
+  "Wir waren griffiger als zuletzt.",
+  "Das ist Fußballromantik pur.",
+  "Das Spiel war auf Messers Schneide.",
+  "Wir haben uns reingebissen.",
+  "Das war eine Willensleistung.",
+  "Da war Feuer drin.",
+  "Das war ein emotionales Spiel.",
+  "Wir hatten die bessere Spielanlage.",
+  "Das war eine richtige Schlacht.",
+  "Wir haben uns den Schneid nicht abkaufen lassen.",
+  "Das war kein Zuckerschlecken.",
+  "Das ist eine Charakterfrage.",
+  "Wir haben heute Mentalität gezeigt.",
+  "Das war ein Schritt nach vorne.",
+  "So ein Spiel musst du erstmal gewinnen.",
+  "Das war ein Arbeitssieg.",
+  "Wir haben alle Register gezogen.",
+  "Das war ein dreckiger Sieg.",
+  "Heute hat man den unbedingten Willen gesehen.",
+  "Das war eine reife Leistung.",
+  "Wir haben gut gegen den Ball gearbeitet.",
+  "Das war ein wichtiges Signal.",
+  "Wir haben die richtige Antwort gegeben.",
+  "Wir hatten das nötige Quäntchen Glück.",
+  "Das war ein Kraftakt.",
+  "Das war Fußball pur.",
+  "Das war ein Fingerzeig.",
+  "Die Mannschaft hat sich den Lohn geholt.",
+  "Das war ein Sieg des Willens.",
+  "Wir haben uns in einen Rausch gespielt.",
+  "Das war eine echte Teamleistung.",
+  "Wir haben es erzwungen.",
+  "Die Körpersprache war entscheidend.",
+  "Das war ein echter Fight.",
+  "Wir haben alles rausgehauen.",
+  "So spielt ein Spitzenteam.",
+  "Das war ein Big Win.",
+  "Wir haben es über die Linie gerettet.",
+  "Wir haben Herz gezeigt.",
+  "Das war ein Kraftakt mit Happy End.",
+  "Wir haben Fußball gearbeitet.",
+  "Das war ein Gänsehautmoment.",
+  "Die Jungs haben geliefert.",
+  "Das war eine starke Vorstellung.",
+  "Wir haben dem Gegner den Schneid abgekauft.",
+  "Das war eine Demonstration.",
+  "Heute hat jeder an jeden geglaubt.",
+  "Das war pure Leidenschaft.",
+  "Das Spiel hatte alles.",
+  "Das war ein intensives Duell.",
+  "Wir sind heute an unsere Grenzen gegangen.",
+  "Das war ein Spiel mit allem, was dazugehört.",
+  "Das war ein absolutes Highlight.",
+  "Wir haben an uns geglaubt."
+];
+
+export default function PhrasesScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Fußballphrasen</Text>
+      <FlatList
+        data={phrases}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <Text style={styles.item}>– {item}</Text>
+        )}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 16, backgroundColor: 'white' },
+  header: { fontSize: 24, fontWeight: 'bold', marginBottom: 12 },
+  item: { fontSize: 16, marginBottom: 8 }
+});

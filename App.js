@@ -1,86 +1,54 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, Image, useColorScheme } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import LoginScreen from './LoginScreen';
-import VotingScreen from './VotingScreen';
-import StatisticsScreen from './StatisticsScreen';
-import SettingsScreen from './SettingsScreen';
-import { lightTheme, darkTheme } from './theme';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { createClient } from '@supabase/supabase-js';
 
-function HomeScreen({ route }) {
-  const { teamName } = route?.params || {};
+const supabaseUrl = 'https://whncdupzgukzaelbwbki.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndobmNkdXB6Z3VremFlbGJ3YmtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwNDE0NDYsImV4cCI6MjA2NjYxNzQ0Nn0.z1HgamDkl330SbqbtABjzCflGwaI-QrFEcGBmwesX_I';
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+export default function App() {
+  const [teamCode, setTeamCode] = useState('');
+  const [teamId, setTeamId] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleJoinTeam = async () => {
+    const { data, error } = await supabase
+      .from('teams')
+      .select('id')
+      .eq('code', teamCode)
+      .single();
+
+    if (error) {
+      setError('Teamcode nicht gefunden');
+      setTeamId(null);
+    } else {
+      setTeamId(data.id);
+      setError(null);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Willkommen beim Phrasenschwein</Text>
-      <Image source={require('./assets/welcome.png')} style={styles.image} />
-      <Text style={styles.subtitle}>Team: {teamName || 'Unbekannt'}</Text>
+      <Text style={styles.title}>Phrasenschwein</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Teamcode eingeben"
+        value={teamCode}
+        onChangeText={setTeamCode}
+      />
+      <Button title="Team beitreten" onPress={handleJoinTeam} />
+      {teamId && <Text style={styles.success}>Team-ID: {teamId}</Text>}
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 }
 
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-  const [user, setUser] = React.useState(null);
-  const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
-
-  if (!user) {
-    return <LoginScreen onLogin={setUser} />;
-  }
-
-  return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ color, size }) => {
-              let iconName;
-              if (route.name === 'Start') iconName = 'home';
-              else if (route.name === 'Abstimmen') iconName = 'comment-check';
-              else if (route.name === 'Statistik') iconName = 'chart-bar';
-              else if (route.name === 'Einstellungen') iconName = 'cog';
-              return <MaterialCommunityIcons name={iconName} color={color} size={size} />;
-            },
-            headerShown: false,
-          })}
-        >
-          <Tab.Screen name="Start" children={() => <HomeScreen route={{ params: user }} />} />
-          <Tab.Screen name="Abstimmen" children={() => <VotingScreen route={{ params: user }} />} />
-          <Tab.Screen name="Statistik" children={() => <StatisticsScreen route={{ params: user }} />} />
-          <Tab.Screen name="Einstellungen" children={() => <SettingsScreen route={{ params: user }} />} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  subtitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  image: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 },
+  title: { fontSize: 24, marginBottom: 16 },
+  input: { borderWidth: 1, padding: 8, width: '100%', marginBottom: 12 },
+  success: { marginTop: 12, color: 'green' },
+  error: { marginTop: 12, color: 'red' },
 });
